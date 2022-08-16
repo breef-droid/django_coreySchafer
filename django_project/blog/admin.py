@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Post
 
-# Register your models here.
+# Register our models to enable a view on admin page
+admin.site.register(Post)
