@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages # used for sending flash messages to client
+from .forms import UserRegisterForm
 
 
 def register(request):
     #logic to handle what to do with POST requests from new users
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         # logic to handle if form is valid
         if form.is_valid():
             form.save() # saves user hashes password
@@ -14,9 +14,8 @@ def register(request):
             messages.success(request, f'Account created for {username}!') # shows success message
             return redirect('blog-home') # redirects user on succesfull registration to blog-home page
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()#creates user form
 
-    form = UserCreationForm() #creates user form
     return render(request, 'users/register.html', {'form': form}) # renders html useing our form as an attribute
 
 # messages.debug(request, message)
